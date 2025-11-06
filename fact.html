@@ -18,31 +18,132 @@
 				border:0.05cm solid black;
 				padding:1cm;
 			}
+			.pink{
+				background-color:#cf87d3;
+				color:#fff;
+				font-weight:bold;
+			}
+			#cont1{
+				display:inline-block;
+			}
+			#cont2{
+				display:inline-block;
+				float:right;
+			}
+			#cont3{
+				padding-top:100px;
+			}
+			#cont4{
+				padding-top:50px;
+			}
 			#logo1{
 				width:5cm;
 				height:auto;
-				display:inline-block;
 			}
 			#logo2{
 				width:5cm;
 				height:auto;
-				display:inline-block;
-				float:right;
+			}
+			#adresse{
+				font-size:10pt;
+				line-height:1.5;
+			}
+			#fac{
+				width:5cm;
+				text-align:center;
+				font-weight:bold;
+				font-style:italic;
+				font-size:1.75em;
+				color:#9b3aa0;
+				line-height:0.25;
+			}
+			
+			table, tr, td{
+				border-collapse:collapse;
+			}
+			
+			table{
+				with:100%;
+				border:none;
+			}
+
+			td{
+				padding:0.125cm;
+				border:1px solid #cf87d3;
+			}
+			
+			.input-symbol-euro {
+				position: relative;
+			}
+			.input-symbol-euro input {
+				padding-left:18px;
+			}
+			.input-symbol-euro:before {
+				position: absolute;
+				top: 0;
+				content:"€";
+				left:5px;
+			}
+			
+			@media print {
+				.page{
+					border:none;
+				}
+				input{
+					border:none;
+				}
 			}
 		</style>
 	</head>
 	<body>
 		<div class="page">
-			<img src="https://leblog92.github.io/liviabeaute/logo_NBL.png" id="logo1"/>
-			<img src="https://leblog92.github.io/liviabeaute/visuel.png" id="logo2"/>
-			<div>
+			<div id="cont1">
+				<img src="https://leblog92.github.io/liviabeaute/logo_NBL.png" id="logo1"/>
+			</div>
+			<div id="cont2">
+				<img src="https://leblog92.github.io/liviabeaute/visuel.png" id="logo2"/><br>
+				<p id="fac">FACTURE</p>
+			</div>
+			<div id="adresse">
 				<p>
 				252 avenue Napoléon Bonaparte<br>
 				92500 RUEIL-MALMAISON<br>
 				Téléphone : 07 64 69 37 90<br>
 				SIRET / 451 127 948 000 29
 				</p>
-				
+			</div>
+			
+			<div id="cont3">
+				<table>
+				  <tr>
+					<td class="pink">FACTURER À</td>
+					<td></td>
+					<td class="pink">N° FACTURE</td>
+					<td class="pink">DATE</td>
+				  </tr>
+				  <tr>
+					<td><input/></td>
+					<td></td>
+					<td><input type="text" id="refInput" value="LV0001"/></td>
+					<td><input type="date" id="dateInput"/></td>
+				  </tr>
+				</table>
+			</div>
+			<div id="cont4">
+				<table>
+				  <tr>
+					<td class="pink">DESCRIPTION</td>
+					<td class="pink">QTÉ</td>
+					<td class="pink">PRIX UNITAIRE</td>
+					<td class="pink">MONTANT</td>
+				  </tr>
+				  <tr>
+					<td><input /></td>
+					<td><input type="number" size="1" value="1"/></td>
+					<td><input type="number" id="refInput"/></td>
+					<td><input type="number"/><span> €</span></td>
+				  </tr>
+				</table>
 			</div>
 		</div>
 		<script>
