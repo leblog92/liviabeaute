@@ -63,26 +63,12 @@
 			}
 			
 			table{
-				with:100%;
-				border:none;
+				width:100%;
 			}
 
 			td{
 				padding:0.125cm;
 				border:1px solid #cf87d3;
-			}
-			
-			.input-symbol-euro {
-				position: relative;
-			}
-			.input-symbol-euro input {
-				padding-left:18px;
-			}
-			.input-symbol-euro:before {
-				position: absolute;
-				top: 0;
-				content:"€";
-				left:5px;
 			}
 			
 			@media print {
@@ -106,26 +92,39 @@
 			</div>
 			<div id="adresse">
 				<p>
-				252 avenue Napoléon Bonaparte<br>
-				92500 RUEIL-MALMAISON<br>
-				Téléphone : 07 64 69 37 90<br>
-				SIRET / 451 127 948 000 29
+					252 avenue Napoléon Bonaparte<br>
+					92500 RUEIL-MALMAISON<br>
+					Téléphone : 07 64 69 37 90<br>
+					SIRET / 451 127 948 000 29
 				</p>
 			</div>
 			
 			<div id="cont3">
 				<table>
+					<colgroup>
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+						<col width="5%"><col width="5%">
+					</colgroup>
+				
 				  <tr>
-					<td class="pink">FACTURER À</td>
-					<td></td>
-					<td class="pink">N° FACTURE</td>
-					<td class="pink">DATE</td>
+					<td class="pink" colspan=5>FACTURER À</td>
+					<td colspan=2></td>
+					<td class="pink" colspan=1>N° FACTURE</td>
+					<td class="pink" colspan=2>DATE</td>
 				  </tr>
 				  <tr>
-					<td><input/></td>
-					<td></td>
-					<td><input type="text" id="refInput" value="LV0001"/></td>
-					<td><input type="date" id="dateInput"/></td>
+					<td colspan=5><input/></td>
+					<td colspan=2></td>
+					<td colspan=1><input type="text" id="refInput" value="LV0001"/></td>
+					<td colspan=2><input type="date" id="dateInput"/></td>
 				  </tr>
 				</table>
 			</div>
@@ -140,7 +139,7 @@
 				  <tr>
 					<td><input /></td>
 					<td><input type="number" size="1" value="1"/></td>
-					<td><input type="number" id="refInput"/></td>
+					<td><input type="number"/></td>
 					<td><input type="number"/><span> €</span></td>
 				  </tr>
 				</table>
