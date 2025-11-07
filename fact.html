@@ -23,6 +23,9 @@
 				color:#fff;
 				font-weight:bold;
 			}
+			.void{
+				border:none;
+			}
 			#cont1{
 				display:inline-block;
 			}
@@ -100,52 +103,111 @@
 			</div>
 			
 			<div id="cont3">
+			<hr>
 				<table>
 					<colgroup>
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-						<col width="5%"><col width="5%">
-					</colgroup>
-				
-				  <tr>
-					<td class="pink" colspan=5>FACTURER À</td>
-					<td colspan=2></td>
-					<td class="pink" colspan=1>N° FACTURE</td>
-					<td class="pink" colspan=2>DATE</td>
-				  </tr>
-				  <tr>
-					<td colspan=5><input/></td>
-					<td colspan=2></td>
-					<td colspan=1><input type="text" id="refInput" value="LV0001"/></td>
-					<td colspan=2><input type="date" id="dateInput"/></td>
-				  </tr>
+					<tbody>
+						<tr>
+							<td class="pink">FACTURER À</td>
+							<td class="void"></td>
+							<td class="pink">N° FACTURE</td>
+							<td class="pink">DATE</td>
+						</tr>
+						<tr>
+							<td><input/></td>
+							<td class="void"></td>
+							<td><input type="text" id="refInput" value="LV0001"/></td>
+							<td><input type="date" id="dateInput"/></td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<div id="cont4">
 				<table>
-				  <tr>
+				<tr>
 					<td class="pink">DESCRIPTION</td>
 					<td class="pink">QTÉ</td>
 					<td class="pink">PRIX UNITAIRE</td>
 					<td class="pink">MONTANT</td>
-				  </tr>
-				  <tr>
-					<td><input /></td>
-					<td><input type="number" size="1" value="1"/></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
 					<td><input type="number"/><span> €</span></td>
-				  </tr>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td><input type="text" /></td>
+					<td><input type="number" value="1"/></td>
+					<td><input type="number"/></td>
+					<td><input type="number"/><span> €</span></td>
+				</tr>
+				<tr>
+					<td class="pink">Nous vous remercions de votre confiance</td>
+					<td class="pink"></td>
+					<td class="pink">TOTAL</td>
+					<td class="pink"><input type="number"/><span> €</span></td>
+				</tr>				
 				</table>
 			</div>
 		</div>
 		<script>
+			var date=["02/05/2025","02/05/2025","03/05/2025","05/05/2025","06/05/2025","10/05/2025","16/05/2025","17/05/2025"];
+			var montant=["50","70","50","40","40","50","80","50"];
+			var cliente=["Audrey","Karine","Laura","Anne-Marie","Chloé","Séverine","Alexandra ","Marine"];
+			var service=["BDP et pose VSP","BDP Man vernis simple","Remp biab","Dep Pose","Dep Man Pose VSP 5ème passage","BDP Vsp","Dep Man offerte Pose VSP et Ped VSP","-"];
+			
+			
+			
+			
 		</script>
 	</body>
 </html>
