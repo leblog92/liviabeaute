@@ -134,67 +134,67 @@
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number" id="prix1" onchange="ajouterSuffixeEuro(this)" placeholder="Entrez le prix"/><span class="suffixe-euro"></span></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td><input type="text" /></td>
 					<td><input type="number" value="1"/></td>
 					<td><input type="number"/></td>
-					<td><input type="number"/><span> €</span></td>
+					<td><input type="number"/></td>
 				</tr>
 				<tr>
 					<td class="pink">Nous vous remercions de votre confiance</td>
 					<td class="pink"></td>
 					<td class="pink">TOTAL</td>
-					<td class="pink"><input type="number"/><span> €</span></td>
+					<td class="pink"><input type="number"/></td>
 				</tr>				
 				</table>
 			</div>
@@ -207,7 +207,16 @@
 			
 			
 			
-			
+			function ajouterSuffixeEuro(input) {
+			// Trouve l'élément span suivant pour afficher le suffixe
+			const suffixeSpan = input.nextElementSibling;
+
+			if (input.value && !isNaN(input.value)) {
+					suffixeSpan.textContent = ' €';
+				} else {
+					suffixeSpan.textContent = '';
+				}
+			}
 		</script>
 	</body>
 </html>

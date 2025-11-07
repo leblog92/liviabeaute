@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Nails by Livia - Facturation</title>
+		<link rel="icon" type="image/png" href="logo_favicon.png" />
+		<style>
+			*{
+				font-family:Arial;
+			}
+			html,body{
+				height:100%;
+				margin:20px;
+			}
+			.page{
+				width:20.9cm;
+				height:29.6cm;
+				border:0.05cm solid black;
+				padding:1cm;
+			}
+			.pink{
+				background-color:#cf87d3;
+				color:#fff;
+				font-weight:bold;
+			}
+			.void{
+				border:none;
+			}
+			#cont1{
+				display:inline-block;
+			}
+			#cont2{
+				display:inline-block;
+				float:right;
+			}
+			#cont3{
+				padding-top:100px;
+			}
+			#cont4{
+				padding-top:50px;
+			}
+			#logo1{
+				width:5cm;
+				height:auto;
+			}
+			#logo2{
+				width:5cm;
+				height:auto;
+			}
+			#adresse{
+				font-size:10pt;
+				line-height:1.5;
+			}
+			#fac{
+				width:5cm;
+				text-align:center;
+				font-weight:bold;
+				font-style:italic;
+				font-size:1.75em;
+				color:#9b3aa0;
+				line-height:0.25;
+			}
+			
+			table, tr, td{
+				border-collapse:collapse;
+			}
+			
+			table{
+				width:100%;
+			}
+
+			td{
+				padding:0.125cm;
+				border:1px solid #cf87d3;
+			}
+			
+			/* Styles pour le menu de sélection */
+			.menu-selection {
+				background: #f8f8f8;
+				padding: 15px;
+				margin-bottom: 20px;
+				border: 2px solid #cf87d3;
+				border-radius: 8px;
+			}
+			
+			.menu-selection select, .menu-selection button {
+				padding: 8px 12px;
+				margin: 5px;
+				border: 1px solid #cf87d3;
+				border-radius: 4px;
+				font-size: 14px;
+			}
+			
+			.menu-selection button {
+				background-color: #cf87d3;
+				color: white;
+				cursor: pointer;
+				font-weight: bold;
+			}
+			
+			.menu-selection button:hover {
+				background-color: #9b3aa0;
+			}
+			
+			/* Styles pour les inputs avec euros */
+			.input-container {
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			
+			.input-container input {
+				width: 100%;
+				padding-right: 25px;
+				box-sizing: border-box;
+			}
+			
+			.euro-suffix {
+				position: absolute;
+				right: 8px;
+				top: 50%;
+				transform: translateY(-50%);
+				color: #666;
+				pointer-events: none;
+			}
+			
+			/* Styles d'impression */
+			@media print {
+				.page{
+					border:none;
+				}
+				input{
+					border:none;
+					background: transparent;
+				}
+				.menu-selection {
+					display: none !important;
+				}
+				.euro-suffix {
+					display: inline !important;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Menu de sélection des factures -->
+		<div class="menu-selection">
+			<label for="selectFacture">Choisir une facture : </label>
+			<select id="selectFacture">
+				<option value="">-- Nouvelle facture --</option>
+			</select>
+			<button onclick="chargerFacture()">Charger la facture</button>
+			<!-- <button onclick="sauvegarderFacture()">Sauvegarder</button> -->
+			<button onclick="imprimerFacture()">Imprimer/PDF</button>
+			<button onclick="nouvelleFacture()">Nouvelle Facture</button>
+		</div>
+		
+		<div class="page">
+			<div id="cont1">
+				<img src="https://leblog92.github.io/liviabeaute/logo_NBL.png" id="logo1"/>
+			</div>
+			<div id="cont2">
+				<img src="https://leblog92.github.io/liviabeaute/visuel.png" id="logo2"/><br>
+				<p id="fac">FACTURE</p>
+			</div>
+			<div id="adresse">
+				<p>
+					252 avenue Napoléon Bonaparte<br>
+					92500 RUEIL-MALMAISON<br>
+					Téléphone : 07 64 69 37 90<br>
+					SIRET / 451 127 948 000 29
+				</p>
+			</div>
+			
+			<div id="cont3">
+			<hr>
+				<table>
+					<colgroup>
+					<tbody>
+						<tr>
+							<td class="pink">FACTURER À</td>
+							<td class="void"></td>
+							<td class="pink">N° FACTURE</td>
+							<td class="pink">DATE</td>
+						</tr>
+						<tr>
+							<td><input id="clientInput"/></td>
+							<td class="void"></td>
+							<td><input type="text" id="refInput" value="LV0001"/></td>
+							<td><input type="date" id="dateInput"/></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div id="cont4">
+				<table id="tableauServices">
+				<tr>
+					<td class="pink">DESCRIPTION</td>
+					<td class="pink">QTÉ</td>
+					<td class="pink">PRIX UNITAIRE</td>
+					<td class="pink">MONTANT</td>
+				</tr>
+				<!-- Lignes générées dynamiquement -->
+				</table>
+				
+				<table style="margin-top: 20px;">
+					<tr>
+						<td class="pink" colspan="2">Nous vous remercions de votre confiance</td>
+						<td class="pink">MONTANT</td>
+						<td class="pink">
+							<div class="input-container">
+								<input type="number" id="totalInput" readonly/>
+								<span class="euro-suffix">€</span>
+							</div>
+						</td>
+					</tr>				
+				</table>
+			</div>
+		</div>
+		
+		<script>
+			// Données des factures existantes
+			const factures = [
+				{ date: "2025-02-05", montant: "50", cliente: "Audrey", service: "BDP et pose VSP", reference: "LV0001" },
+				{ date: "2025-02-05", montant: "70", cliente: "Karine", service: "BDP Man vernis simple", reference: "LV0002" },
+				{ date: "2025-03-05", montant: "50", cliente: "Laura", service: "Remp biab", reference: "LV0003" },
+				{ date: "2025-05-05", montant: "40", cliente: "Anne-Marie", service: "Dep Pose", reference: "LV0004" },
+				{ date: "2025-06-05", montant: "40", cliente: "Chloé", service: "Dep Man Pose VSP 5ème passage", reference: "LV0005" },
+				{ date: "2025-10-05", montant: "50", cliente: "Séverine", service: "BDP Vsp", reference: "LV0006" },
+				{ date: "2025-16-05", montant: "80", cliente: "Alexandra", service: "Dep Man offerte Pose VSP et Ped VSP", reference: "LV0007" },
+				{ date: "2025-17-05", montant: "50", cliente: "Marine", service: "-", reference: "LV0008" }
+			];
+
+			// Initialisation
+			document.addEventListener('DOMContentLoaded', function() {
+				initialiserMenuFactures();
+				creerLignesServices(10);
+				calculerTotal();
+				mettreAJourDate();
+			});
+
+			// Initialise le menu déroulant des factures
+			function initialiserMenuFactures() {
+				const select = document.getElementById('selectFacture');
+				factures.forEach((facture, index) => {
+					const option = document.createElement('option');
+					option.value = index;
+					option.textContent = `${facture.reference} - ${facture.cliente} - ${facture.date}`;
+					select.appendChild(option);
+				});
+			}
+
+			// Crée les lignes de services dans le tableau
+			function creerLignesServices(nombreLignes) {
+				const tableau = document.getElementById('tableauServices');
+				// Garde l'en-tête
+				while (tableau.rows.length > 1) {
+					tableau.deleteRow(1);
+				}
+				
+				for (let i = 0; i < nombreLignes; i++) {
+					const ligne = tableau.insertRow();
+					
+					// Colonne Description
+					const cellDescription = ligne.insertCell();
+					cellDescription.innerHTML = `<input type="text" class="description" onchange="calculerTotal()">`;
+					
+					// Colonne Quantité
+					const cellQuantite = ligne.insertCell();
+					cellQuantite.innerHTML = `<input type="number" class="quantite" value="1" min="0" onchange="calculerTotal()">`;
+					
+					// Colonne Prix Unitaire
+					const cellPrixUnitaire = ligne.insertCell();
+					cellPrixUnitaire.innerHTML = `
+						<div class="input-container">
+							<input type="number" class="prix-unitaire" step="0.01" min="0" onchange="calculerTotal()">
+							<span class="euro-suffix">€</span>
+						</div>
+					`;
+					
+					// Colonne Montant
+					const cellMontant = ligne.insertCell();
+					cellMontant.innerHTML = `
+						<div class="input-container">
+							<input type="number" class="montant" step="0.01" min="0" readonly>
+							<span class="euro-suffix">€</span>
+						</div>
+					`;
+				}
+			}
+
+			// Calcule le total de la facture
+			function calculerTotal() {
+				let total = 0;
+				const lignes = document.querySelectorAll('#tableauServices tr');
+				
+				for (let i = 1; i < lignes.length; i++) {
+					const quantite = parseFloat(lignes[i].querySelector('.quantite').value) || 0;
+					const prixUnitaire = parseFloat(lignes[i].querySelector('.prix-unitaire').value) || 0;
+					const montant = quantite * prixUnitaire;
+					
+					// Met à jour le montant de la ligne
+					const inputMontant = lignes[i].querySelector('.montant');
+					inputMontant.value = montant.toFixed(2);
+					
+					total += montant;
+				}
+				
+				// Met à jour le total général
+				document.getElementById('totalInput').value = total.toFixed(2);
+			}
+
+			// Charge une facture depuis le menu
+			function chargerFacture() {
+				const select = document.getElementById('selectFacture');
+				const index = select.value;
+				
+				if (index === "") {
+					return; // Nouvelle facture
+				}
+				
+				const facture = factures[index];
+				document.getElementById('clientInput').value = facture.cliente;
+				document.getElementById('refInput').value = facture.reference;
+				document.getElementById('dateInput').value = facture.date;
+				
+				// Remplit la première ligne avec les données de la facture
+				const premiereLigne = document.querySelector('#tableauServices tr:nth-child(2)');
+				if (premiereLigne) {
+					premiereLigne.querySelector('.description').value = facture.service;
+					premiereLigne.querySelector('.quantite').value = 1;
+					premiereLigne.querySelector('.prix-unitaire').value = facture.montant;
+				}
+				
+				calculerTotal();
+			}
+
+			// Sauvegarde la facture actuelle
+			function sauvegarderFacture() {
+				const reference = document.getElementById('refInput').value;
+				const cliente = document.getElementById('clientInput').value;
+				const date = document.getElementById('dateInput').value;
+				
+				alert(`Facture ${reference} sauvegardée pour ${cliente}`);
+				// Ici vous pourriez sauvegarder dans localStorage ou envoyer à un serveur
+			}
+
+			// Crée une nouvelle facture
+			function nouvelleFacture() {
+				document.getElementById('clientInput').value = '';
+				document.getElementById('refInput').value = 'LV' + (factures.length + 1).toString().padStart(4, '0');
+				document.getElementById('dateInput').value = '';
+				
+				// Réinitialise toutes les lignes
+				document.querySelectorAll('#tableauServices input').forEach(input => {
+					if (input.classList.contains('quantite')) {
+						input.value = 1;
+					} else {
+						input.value = '';
+					}
+				});
+				
+				document.getElementById('selectFacture').value = "";
+				calculerTotal();
+				mettreAJourDate();
+			}
+
+			// Met à jour la date avec la date du jour
+			function mettreAJourDate() {
+				const aujourdhui = new Date().toISOString().split('T')[0];
+				if (!document.getElementById('dateInput').value) {
+					document.getElementById('dateInput').value = aujourdhui;
+				}
+			}
+
+			// Imprime la facture
+			function imprimerFacture() {
+				window.print();
+			}
+		</script>
+	</body>
+</html>
