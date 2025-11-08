@@ -126,6 +126,9 @@
 			
 			/* Styles d'impression */
 			@media print {
+				html, body{
+					margin:0;
+				}
 				.page{
 					border:none;
 				}
@@ -167,6 +170,14 @@
 			#tableauServices td:nth-child(2) input {
 				text-align: center;
 				width: 100%;
+			}
+			
+			.large{
+				width:11cm;
+			}
+			
+			.small{
+				width:0.5cm;
 			}
 		</style>
 	</head>
@@ -248,16 +259,27 @@
 		
 		<script>
 			// Données des factures existantes
-			const factures = [
-				{ date: "2025-02-05", montant: "50", cliente: "Audrey", service: "BDP et pose VSP", reference: "LV0001" },
-				{ date: "2025-02-05", montant: "70", cliente: "Karine", service: "BDP Man vernis simple", reference: "LV0002" },
-				{ date: "2025-03-05", montant: "50", cliente: "Laura", service: "Remp biab", reference: "LV0003" },
-				{ date: "2025-05-05", montant: "40", cliente: "Anne-Marie", service: "Dep Pose", reference: "LV0004" },
-				{ date: "2025-06-05", montant: "40", cliente: "Chloé", service: "Dep Man Pose VSP 5ème passage", reference: "LV0005" },
-				{ date: "2025-10-05", montant: "50", cliente: "Séverine", service: "BDP Vsp", reference: "LV0006" },
-				{ date: "2025-16-05", montant: "80", cliente: "Alexandra", service: "Dep Man offerte Pose VSP et Ped VSP", reference: "LV0007" },
-				{ date: "2025-17-05", montant: "50", cliente: "Marine", service: "-", reference: "LV0008" }
-			];
+		const factures = [
+		 {date: "2025-01-04", montant: "15", cliente: "Madeleine", service: "Depose biab", reference: "LV20250101"},
+		 {date: "2025-02-22", montant: "15", cliente: "Megan", service: "dep gel et nouvo biab clear", reference: "LV20250201"},
+		 {date: "2025-03-23", montant: "45", cliente: "Marine", service: "Min base ind et vsp marron et man", reference: "LV20250301"},
+		 {date: "2025-04-06", montant: "50", cliente: "Laura", service: "remp biab 1 dimanche cadeau du dimanche offert à déduire du prochain bonus des 5 passages", reference: "LV20250401"},
+		 {date: "2025-04-18", montant: "40", cliente: "Marine", service: "fin de dep man rapide pose semi rouge avec min base indigo", reference: "LV20250402"},
+		 {date: "2025-04-22", montant: "50", cliente: "Nathalie", service: "Biab", reference: "LV20250403"},
+		 {date: "2025-04-27", montant: "80", cliente: "Eva Pompier", service: "Man pose cap Am vsp", reference: "LV20250404"},
+		 {date: "2025-05-21", montant: "100", cliente: "Anne-Marie ", service: "Dep Man pose vsp min base ped vsp", reference: "LV20250501"},
+		 {date: "2025-05-28", montant: "45", cliente: "Charlotte 2 ", service: "Pour sa maman payé et à faire Man et vsp", reference: "LV20250502"},
+		 {date: "2025-06-09", montant: "60", cliente: "Clotilde", service: "Man Russe et pose de vsp", reference: "LV20250601"},
+		 {date: "2025-06-11", montant: "15", cliente: "Anais", service: "BDP et Vsp", reference: "LV20250602"},
+		 {date: "2025-06-13", montant: "50", cliente: "Laurence Piat", service: "Kdo de sa fille Charlotte et BDP et vsp sur les mains Gumy base rose shimmer prochaine fois vieux rose cat eyes sur les pieds A239", reference: "LV20250603"},
+		 {date: "2025-06-16", montant: "25", cliente: "Alienor", service: "-", reference: "LV20250604"},
+		 {date: "2025-06-25", montant: "10", cliente: "Clotilde", service: "Depose", reference: "LV20250605"},
+		 {date: "2025-07-04", montant: "100", cliente: "Adeline", service: "-", reference: "LV20250701"},
+		 {date: "2025-07-21", montant: "45", cliente: "Marion", service: "Remp Biab Soçucis gel clear remise prochaine fois et 5 eme pass", reference: "LV20250702"},
+		 {date: "2025-07-26", montant: "30", cliente: "Josephine", service: "Pose vsp", reference: "LV20250703"},
+		 {date: "2025-07-26", montant: "30", cliente: "Mme Diamant", service: "Pose vsp", reference: "LV20250704"},
+		 {date: "2025-07-28", montant: "50", cliente: "Emmanuelle", service: "Forfait Dep Man Pose", reference: "LV20250705"}
+		];
 
 			// Initialisation
 			document.addEventListener('DOMContentLoaded', function() {
@@ -291,11 +313,11 @@
 					
 					// Colonne Description
 					const cellDescription = ligne.insertCell();
-					cellDescription.innerHTML = `<input type="text" class="description" onchange="calculerTotal()">`;
+					cellDescription.innerHTML = `<input type="text" class="description large" onchange="calculerTotal()">`;
 					
 					// Colonne Quantité
 					const cellQuantite = ligne.insertCell();
-					cellQuantite.innerHTML = `<input type="number" class="quantite" value="1" min="0" onchange="calculerTotal()">`;
+					cellQuantite.innerHTML = `<input type="number" class="quantite small" value="1" min="0" onchange="calculerTotal()">`;
 					
 					// Colonne Prix Unitaire
 					const cellPrixUnitaire = ligne.insertCell();
