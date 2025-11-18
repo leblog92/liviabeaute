@@ -318,6 +318,7 @@
 				creerLignesServices(10);
 				calculerTotal();
 				mettreAJourDate();
+				mettreAJourTitre(); // Initialiser le titre
 			});
 
 			// Initialise le menu déroulant des factures
@@ -389,6 +390,9 @@
 				
 				// Met à jour le total général
 				document.getElementById('totalInput').value = total.toFixed(2);
+				
+				// Met à jour le titre de la page
+				mettreAJourTitre();
 			}
 
 			// Charge une facture depuis le menu
@@ -414,6 +418,7 @@
 				}
 				
 				calculerTotal();
+				mettreAJourTitre(); // Mettre à jour le titre après le chargement
 			}
 
 			// Sauvegarde la facture actuelle
@@ -444,6 +449,7 @@
 				document.getElementById('selectFacture').value = "";
 				calculerTotal();
 				mettreAJourDate();
+				mettreAJourTitre(); // Mettre à jour le titre après la création
 			}
 
 			// Met à jour la date avec la date du jour
@@ -458,6 +464,34 @@
 			function imprimerFacture() {
 				window.print();
 			}
+			
+			// Met à jour le titre de la page en fonction de la facture affichée
+			function mettreAJourTitre() {
+				const reference = document.getElementById('refInput').value;
+				const cliente = document.getElementById('clientInput').value;
+				const total = document.getElementById('totalInput').value;
+				
+				let titre = 'Nails by Livia - Facturation';
+				
+				if (reference && reference !== 'LV0001') {
+					titre = `Facture ${reference} - Nails by Livia`;
+					
+					if (cliente) {
+						titre = `Facture ${reference} - ${cliente} - Nails by Livia`;
+					}
+					
+					if (total && total !== '0.00') {
+						titre += ` - ${total}€`;
+					}
+				}
+				
+				document.title = titre;
+			}
+			
+			// Ajout d'écouteurs d'événements pour mettre à jour le titre lors de la modification des champs
+			document.getElementById('refInput').addEventListener('input', mettreAJourTitre);
+			document.getElementById('clientInput').addEventListener('input', mettreAJourTitre);
+			document.getElementById('dateInput').addEventListener('change', mettreAJourTitre);
 		</script>
 	</body>
 </html>
